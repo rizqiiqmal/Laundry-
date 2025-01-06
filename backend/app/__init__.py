@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-    
 
+
+from app.model import user, layanan, notifikasi, transaksi, pelanggan
 from app import routes
