@@ -1,7 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Hubungi = () => {
+const Hubungi = () =>  {
+        const navigate = useNavigate();
+        function homeBtn(){
+          navigate('/')
+        }  
+        function layananBtn(){
+          navigate('/layanan')
+        }
+        function hargaBtn(){
+          navigate('/harga') 
+        }
+        function tentangBtn(){
+          navigate('/tentang')  
+        }
+      function hubungiBtn(){
+        navigate('/hubungi')  
+        }
   return (
     <div className="bg-gray-100 h-screen flex flex-col">
       {/* Header */}
@@ -10,9 +26,15 @@ const Hubungi = () => {
           <h1 className="text-lg font-bold">Laundry POS</h1>
           <nav>
             <ul className="flex space-x-6">
-              <li><Link to="/" className="hover:underline">Back</Link></li>
+              <li><a href="#home" onClick={homeBtn}  className="hover:underline">Home</a></li>
+              <li><a href="#services" onClick={layananBtn} className="hover:underline">Layanan Kami</a></li>
+              <li><a href="#pricing" onClick={hargaBtn} className="hover:underline">Harga</a></li>
+              <li><a href="#about" onClick={tentangBtn}  className="hover:underline">Tentang Kami</a></li>
             </ul>
           </nav>
+          <button onClick={hubungiBtn} className="bg-green-500 px-4 py-2 rounded text-white hover:bg-green-600">
+            Hubungi Kami 
+          </button>
         </div>
       </header>
 
