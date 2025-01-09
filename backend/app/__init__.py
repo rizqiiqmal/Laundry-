@@ -9,5 +9,5 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-from app.model import user, layanan, notifikasi, transaksi, pelanggan
+from app.model import pelanggan, user, layanan, notifikasi, transaksi
 from app import routes

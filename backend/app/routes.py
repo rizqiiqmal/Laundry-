@@ -1,5 +1,45 @@
-from app import app
+from app import app  
+from app.controller.DashboardController import add_pelanggan_dan_layanan, index_layanan  
+from app.controller.LayananController import index_layanan, add_layanan, edit_layanan, delete_layanan  
+from app.controller.TransaksiController import index_transaksi, update_status_transaksi  
+from app.controller.DetailController import detail_transaksi  
+  
+# Route untuk menampilkan detail transaksi  
+@app.route('/transaksi/<int:id>', methods=['GET'])  
+def detail_transaksi_route(id):  
+    return detail_transaksi(id)
 
-@app.route('/')
-def index():
-    return 'hello Flask'
+# Route untuk menampilkan semua transaksi  
+@app.route('/transaksi', methods=['GET'])  
+def index_transaksi_route():  
+    return index_transaksi()  
+  
+# Route untuk mengubah status transaksi  
+@app.route('/transaksi/<int:id>', methods=['PUT'])  
+def update_status_transaksi_route(id):  
+    return update_status_transaksi(id)
+
+# Route untuk menampilkan semua layanan  
+@app.route('/layanan', methods=['GET'])  
+def index_layanan_route():  
+    return index_layanan()  
+  
+# Route untuk menambahkan layanan  
+@app.route('/layanan', methods=['POST'])  
+def add_layanan_route():  
+    return add_layanan()  
+  
+# Route untuk mengedit layanan  
+@app.route('/layanan/<int:id>', methods=['PUT'])  
+def edit_layanan_route(id):  
+    return edit_layanan(id)  
+  
+# Route untuk menghapus layanan  
+@app.route('/layanan/<int:id>', methods=['DELETE'])  
+def delete_layanan_route(id):  
+    return delete_layanan(id)
+
+# Route untuk menambahkan pelanggan dan layanan  
+@app.route('/add_pelanggan_dan_layanan', methods=['POST'])  
+def add_pelanggan_dan_layanan_route():  
+    return add_pelanggan_dan_layanan()
