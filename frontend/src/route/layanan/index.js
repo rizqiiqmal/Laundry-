@@ -1,23 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const layanan = () => {
-    const navigate = useNavigate();
-    function homeBtn(){
-      navigate('/')
-    }  
-    function layananBtn(){
-      navigate('/layanan')
-    }
-    function hargaBtn(){
-      navigate('/harga') 
-    }
-    function tentangBtn(){
-      navigate('/tentang')  
-    }
-  function hubungiBtn(){
-    navigate('/hubungi')  
-    }
+const Layanan = () => {
+  const navigate = useNavigate();
+  function homeBtn(){
+    navigate('/')
+  }  
+  function layananBtn(){
+    navigate('/layanan')
+  }
+  function hargaBtn(){
+    navigate('/harga') 
+  }
+  function tentangBtn(){
+    navigate('/tentang')  
+  }
+function hubungiBtn(){
+  navigate('/hubungi')  
+  }
   const services = [
     {
       title: "Cuci Kering",
@@ -103,4 +103,4 @@ const layanan = () => {
   );
 };
 
-export default layanan;
+export default Layanan;

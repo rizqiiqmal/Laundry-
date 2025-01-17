@@ -11,7 +11,7 @@ import LandingPage from './landing page';
 
 import AdminDashboard from './admin/dashboad';
 import AdminForm from './admin/admin_form';
-import TmbhLayanan from "./admin/tambah_layanan";
+import TambahLayanan from './admin/tambah_layanan';
 import KelolaDataTransaksi from "./admin/kelola_data_transaksi";
 import DaftarTransaksi from "./admin/daftar_transaksi";
 import Kontak from "./admin/kontak";
@@ -54,7 +54,7 @@ function App() {
     <Route path="/admin_form" element={<AdminForm/>} />
     </Route>
     <Route>
-    <Route path="/tambahlayanan" element={<TmbhLayanan/>} />
+    <Route path="/tambahlayanan" element={<TambahLayanan />} />
     </Route>
     <Route>
     <Route path="/kelola_data_transaksi" element={<KelolaDataTransaksi />} />

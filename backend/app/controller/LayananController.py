@@ -14,20 +14,23 @@ def index_layanan():
         return response.badRequest([], 'Terjadi kesalahan saat mengambil data layanan')  
   
 # Fungsi untuk menambahkan layanan  
-def add_layanan():  
-    try:  
-        nama_layanan = request.form.get('nama_layanan')  
-        harga_per_kg = request.form.get('harga_per_kg')  
-        deskripsi = request.form.get('deskripsi')  
+def add_layanan():    
+    try:    
+        nama_layanan = request.form.get('nama_layanan')    
+        harga_per_kg = request.form.get('harga_per_kg')    
+        deskripsi = request.form.get('deskripsi')    
   
-        layanan = Layanan(nama_layanan=nama_layanan, harga_per_kg=harga_per_kg, deskripsi=deskripsi)  
-        db.session.add(layanan)  
-        db.session.commit()  
+        print("Data yang diterima:", nama_layanan, harga_per_kg, deskripsi)  # Tambahkan ini untuk debugging  
   
-        return response.success('', 'Berhasil menambah data layanan')  
-    except Exception as e:  
-        print(e)  
-        return response.badRequest([], 'Terjadi kesalahan saat menambah layanan')  
+        layanan = Layanan(nama_layanan=nama_layanan, harga_per_kg=harga_per_kg, deskripsi=deskripsi)    
+        db.session.add(layanan)    
+        db.session.commit()    
+  
+        return response.success('', 'Berhasil menambah data layanan')    
+    except Exception as e:    
+        print(e)    
+        return response.badRequest([], 'Terjadi kesalahan saat menambah layanan')    
+  
   
 # Fungsi untuk mengedit layanan  
 def edit_layanan(id):  

@@ -1,23 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Hubungi = () =>  {
-        const navigate = useNavigate();
-        function homeBtn(){
-          navigate('/')
-        }  
-        function layananBtn(){
-          navigate('/layanan')
-        }
-        function hargaBtn(){
-          navigate('/harga') 
-        }
-        function tentangBtn(){
-          navigate('/tentang')  
-        }
-        function hubungiBtn(){
-        navigate('/hubungi')  
-        }
+const Hubungi = () => {
+  const navigate = useNavigate();
+  function homeBtn(){
+    navigate('/')
+  }  
+  function layananBtn(){
+    navigate('/layanan')
+  }
+  function hargaBtn(){
+    navigate('/harga') 
+  }
+  function tentangBtn(){
+    navigate('/tentang')  
+  }
+function hubungiBtn(){
+  navigate('/hubungi')  
+  }
     return (
     <div className="bg-gray-100 h-screen flex flex-col">
       {/* Header */}
