@@ -110,14 +110,13 @@ const Tambahlayanan = () => {
         {/* Tombol Simpan */}
         <div className="flex justify-between justify-items-center">
         <button
-          type=""
-          className="bg-red-500 text-white px-6 py-3 rounded-lg w- hover:bg-red-600 transition"
-        >
-          Batalkan Layanan
-        </button>
+        onClick={() => window.history.back()}
+        className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+        Kembali
+      </button>
         <button
           type="submit"
-          className="bg-green-500 text-white px-6 py-3 rounded-lg w- hover:bg-green-600 transition"
+          className="mt-6 bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition"
         >
           Simpan Layanan
         </button>
