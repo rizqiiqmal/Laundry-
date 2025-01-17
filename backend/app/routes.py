@@ -2,8 +2,20 @@ from app import app
 from app.controller.DashboardController import add_pelanggan_dan_layanan, index_layanan  
 from app.controller.LayananController import index_layanan, add_layanan, edit_layanan, delete_layanan  
 from app.controller.TransaksiController import index_transaksi, update_status_transaksi  
-from app.controller.DetailController import detail_transaksi  
+from app.controller.DetailController import detail_transaksi
+from app.controller.AuthController import login_admin  
+from app.controller.UserController import register_admin  
+
+# Route untuk registrasi admin  
+@app.route('/register_admin', methods=['POST'])  
+def register_new_admin():  
+    return register_admin()  
   
+# Route untuk login admin  
+@app.route('/login', methods=['POST'])  
+def login():  
+    return login_admin() 
+
 # Route untuk menampilkan detail transaksi  
 @app.route('/transaksi/<int:id>', methods=['GET'])  
 def detail_transaksi_route(id):  
