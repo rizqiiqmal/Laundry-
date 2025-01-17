@@ -15,10 +15,10 @@ const Hubungi = () =>  {
         function tentangBtn(){
           navigate('/tentang')  
         }
-      function hubungiBtn(){
+        function hubungiBtn(){
         navigate('/hubungi')  
         }
-  return (
+    return (
     <div className="bg-gray-100 h-screen flex flex-col">
       {/* Header */}
       <header className="bg-blue-500 text-white py-4">

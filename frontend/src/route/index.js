@@ -7,6 +7,15 @@ import Harga from './harga';
 import Hubungi from './hubungi';
 import Layanan from './layanan';
 import TentangKami from './tentangKami';
+import LandingPage from './landing page';
+
+import AdminDashboard from './admin/dashboad';
+import AdminForm from './admin/admin_form';
+import TmbhLayanan from "./admin/tambah_layanan";
+import KelolaDataTransaksi from "./admin/kelola_data_transaksi";
+import DaftarTransaksi from "./admin/daftar_transaksi";
+import Kontak from "./admin/kontak";
+
 
 
 function App() {
@@ -33,7 +42,31 @@ function App() {
     <Route>
     <Route path="/tentang" element={<TentangKami/>} />
     </Route>
+    <Route>
+    <Route path="/landing page" element={<LandingPage/>} />
+    </Route>
+
+        {/* admin */}
+    <Route>
+    <Route path="/dashboard" element={<AdminDashboard/>} /> 
+    </Route>
+    <Route>
+    <Route path="/admin_form" element={<AdminForm/>} />
+    </Route>
+    <Route>
+    <Route path="/tambahlayanan" element={<TmbhLayanan/>} />
+    </Route>
+    <Route>
+    <Route path="/kelola_data_transaksi" element={<KelolaDataTransaksi />} />
+    </Route>
+    <Route>
+    <Route path="/daftar_transaksi" element={<DaftarTransaksi />} />
+    </Route>
+    <Route>
+    <Route path="/kontak" element={<Kontak/>} />
+    </Route>
     </Routes>
+    
     
     )
     }

@@ -77,7 +77,7 @@ function hubungiBtn(){
               {/* Logo */}
               <div className="mt-4">
                 <img
-                  src="https://via.placeholder.com/150"
+                  src="https://img.icons8.com/?size=100&id=108885&format=png&color=000000"
                   alt="Logo Laundry POS"
                   className="w-24 h-24 rounded-full shadow-md"
                 />
