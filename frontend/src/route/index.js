@@ -11,10 +11,10 @@ import LandingPage from './landing page';
 
 import AdminDashboard from './admin/dashboad';
 import AdminForm from './admin/admin_form';
-import TambahLayanan from './admin/tambah_layanan';
+import TmbhLayanan from "./admin/tambah_layanan";
 import KelolaDataTransaksi from "./admin/kelola_data_transaksi";
 import DaftarTransaksi from "./admin/daftar_transaksi";
-import Kontak from "./admin/kontak";
+import DetailLayananPage from "./admin/detail_layanan";
 
 
 
@@ -43,7 +43,7 @@ function App() {
     <Route path="/tentang" element={<TentangKami/>} />
     </Route>
     <Route>
-    <Route path="/landing page" element={<LandingPage/>} />
+    <Route path="/landing_page" element={<LandingPage/>} />
     </Route>
 
         {/* admin */}
@@ -54,7 +54,7 @@ function App() {
     <Route path="/admin_form" element={<AdminForm/>} />
     </Route>
     <Route>
-    <Route path="/tambahlayanan" element={<TambahLayanan />} />
+    <Route path="/tambahlayanan" element={<TmbhLayanan/>} />
     </Route>
     <Route>
     <Route path="/kelola_data_transaksi" element={<KelolaDataTransaksi />} />
@@ -63,7 +63,7 @@ function App() {
     <Route path="/daftar_transaksi" element={<DaftarTransaksi />} />
     </Route>
     <Route>
-    <Route path="/kontak" element={<Kontak/>} />
+    <Route path="/detail_layanan" element={<DetailLayananPage/>} />
     </Route>
     </Routes>
     

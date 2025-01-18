@@ -159,45 +159,15 @@ return (
             {editingService ? "Simpan Perubahan" : "Simpan Layanan"}      
           </button>      
         </div>      
-      </form>      
-  
-      <div className="mt-10 w-full max-w-lg">      
-        <h3 className="text-2xl font-bold text-blue-600 mb-4">Daftar Layanan</h3>      
-        <table className="w-full border-collapse">      
-          <thead>      
-            <tr>      
-              <th className="border p-2">Nama Layanan</th>      
-              <th className="border p-2">Deskripsi</th>      
-              <th className="border p-2">Harga</th>      
-              <th className="border p-2">Aksi</th>      
-            </tr>      
-          </thead>      
-          <tbody>      
-            {services.map((service) => (      
-              <tr key={service.id}>      
-                <td className="border p-2">{service.nama_layanan}</td> {/* Perbaiki nama properti */}  
-                <td className="border p-2">{service.deskripsi}</td>      
-                <td className="border p-2">{service.harga_per_kg}</td>      
-                <td className="border p-2">      
-                  <button      
-                    onClick={() => handleEdit(service)}      
-                    className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition mr-2"      
-                  >      
-                    Edit      
-                  </button>      
-                  <button      
-                    onClick={() => handleDelete(service.id)}      
-                    className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"      
-                  >      
-                    Hapus      
-                  </button>      
-                </td>      
-              </tr>      
-            ))}      
-          </tbody>      
-        </table>      
-      </div>      
-    </div>      
+      </form> 
+      <button
+        onClick={() => window.history.back()}
+        className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+        Kembali
+      </button>     
+    </div>
+    
+     
   );      
 };      
   

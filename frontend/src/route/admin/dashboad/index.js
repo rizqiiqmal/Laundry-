@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
  const AdminDashboard = () => {
    const navigate = useNavigate();
      function adminBtn(){
-       navigate ('./admin/dashboad')
+       navigate ('/landing_page')
      } 
      function AdminFormBtn(){
        navigate ('/admin_form')
@@ -19,8 +19,8 @@ import { useNavigate } from 'react-router-dom';
       function DaftarBtn(){
         navigate ('/daftar_transaksi')
       } 
-      function kontakBtn(){
-        navigate ('/kontak')
+      function detailBtn(){
+        navigate ('/detail_layanan')
       } 
 
    return (
@@ -33,7 +33,7 @@ import { useNavigate } from 'react-router-dom';
          <div className="flex gap-2">
            <nav>
                <ul className="flex space-x-6"> 
-                 <li><a href="#landing page" onClick={adminBtn}  className="bg-green-500 px-4 py-2 text-sm text-white rounded hover:bg-green-600">Logout</a></li>
+                 <li><a  onClick={adminBtn}  className="bg-green-500 px-4 py-2 text-sm text-white rounded hover:bg-green-600">Logout</a></li>
                </ul>
            </nav>
          </div>
@@ -59,8 +59,8 @@ import { useNavigate } from 'react-router-dom';
            <button onClick={DaftarBtn} className="bg-white shadow rounded-lg p-6 text-center hover:bg-blue-100 transition">
              <h2 className="text-lg font-medium text-gray-700">Daftar Transaksi</h2>
            </button>
-           <button onClick={kontakBtn} className="bg-white shadow rounded-lg p-6 text-center hover:bg-blue-100 transition">
-             <h2 className="text-lg font-medium text-gray-700">Kontak</h2>
+           <button onClick={detailBtn} className="bg-white shadow rounded-lg p-6 text-center hover:bg-blue-100 transition">
+             <h2 className="text-lg font-medium text-gray-700">Detail Layanan</h2>
            </button>
          </div>
        </main>
