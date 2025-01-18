@@ -1,174 +1,118 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';      
-import axios from 'axios';      
+import React, { useState } from "react";  
+import { useNavigate } from 'react-router-dom';  
   
-const LayananManager = () => {      
-  const [serviceName, setServiceName] = useState("");      
-  const [description, setDescription] = useState("");      
-  const [price, setPrice] = useState("");      
-  const [services, setServices] = useState([]);      
-  const [editingService, setEditingService] = useState(null);      
-  const [error, setError] = useState("");      
-  const [successMessage, setSuccessMessage] = useState("");      
+const TambahLayanan = () => {  
+    const navigate = useNavigate();  
+    const [formData, setFormData] = useState({  
+        nama_layanan: '',  
+        harga_per_kg: '',  
+        deskripsi: ''  
+    });  
   
-  useEffect(() => {      
-    fetchServices();      
-  }, []);      
+    const handleChange = (e) => {  
+        setFormData({  
+            ...formData,  
+            [e.target.name]: e.target.value  
+        });  
+    };  
   
-  const fetchServices = async () => {      
-    try {      
-      const response = await axios.get('http://localhost:5000/layanan');        
-      setServices(response.data.data);      
-      setError("");      
-    } catch (err) {      
-      setError("Terjadi kesalahan saat mengambil data layanan");      
-    }      
-  };      
+    const handleSubmit = async (e) => {  
+        e.preventDefault();  
+        console.log('Form Data:', formData); // Tambahkan log ini  
   
-  const handleSubmit = async (e) => {      
-    e.preventDefault();      
-    const newService = {      
-        nama_layanan: serviceName,      
-        harga_per_kg: parseFloat(price),      
-        deskripsi: description,      
-    };      
+        try {  
+            const response = await fetch('http://localhost:5000/layanan', {  
+                method: 'POST',  
+                headers: {  
+                    'Content-Type': 'application/json' // Menggunakan application/json  
+                },  
+                body: JSON.stringify(formData) // Mengirim data sebagai JSON  
+            });  
   
-    console.log("Payload yang dikirim:", newService); // Tambahkan ini untuk debugging      
+            const data = await response.json();  
   
-    try {      
-        if (editingService) {      
-            await axios.put(`http://localhost:5000/layanan/${editingService.id}`, newService);      
-            setSuccessMessage("Layanan berhasil diperbarui!");      
-        } else {      
-            await axios.post('http://localhost:5000/layanan', newService);      
-            setSuccessMessage("Layanan berhasil ditambahkan!");      
-        }      
-        fetchServices();      
-        resetForm();      
-    } catch (err) {      
-        setError("Terjadi kesalahan saat menyimpan layanan");      
-    }      
-};      
+            if (response.ok) {  
+                alert('Layanan berhasil ditambahkan: ' + data.message);  
+                navigate('/dashboard');  
+            } else {  
+                alert('Error: ' + data.message);  
+            }  
+        } catch (error) {  
+            console.error('Error:', error);  
+            alert('Terjadi kesalahan saat mengirim data');  
+        }  
+    };  
   
-const handleEdit = (service) => {      
-    setServiceName(service.nama_layanan); // Perbaiki nama properti  
-    setDescription(service.deskripsi);      
-    setPrice(service.harga_per_kg);      
-    setEditingService(service);      
-};      
+    return (  
+        <div className="min-h-screen flex flex-col bg-gray-50">  
+            {/* Header */}  
+            <header className="bg-blue-500 text-white py-4 px-6 flex justify-between items-center">  
+                <h1 className="text-xl font-bold">Tambah Layanan</h1>  
+            </header>  
   
-const handleDelete = async (id) => {      
-    try {      
-      await axios.delete(`http://localhost:5000/layanan/${id}`); // Perbaiki URL  
-      fetchServices();      
-      setSuccessMessage("Layanan berhasil dihapus!");      
-    } catch (err) {      
-      setError("Terjadi kesalahan saat menghapus layanan");      
-    }      
-};      
+            {/* Main Content */}  
+            <main className="flex-grow container mx-auto py-10 px-6">  
+                {/* Form Section */}  
+                <div className="bg-white shadow rounded-lg p-6 max-w-lg mx-auto">  
+                    <h1 className="text-2xl font-semibold text-gray-700 mb-4 text-center">Form Tambah Layanan</h1>  
+                    <form className="space-y-6" onSubmit={handleSubmit}>  
+                        <div>  
+                            <label className="block text-sm font-medium text-gray-700">Nama Layanan</label>  
+                            <input  
+                                type="text"  
+                                name="nama_layanan"  
+                                value={formData.nama_layanan}  
+                                onChange={handleChange}  
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"  
+                                required  
+                            />  
+                        </div>  
+                        <div>  
+                            <label className="block text-sm font-medium text-gray-700">Harga per Kg</label>  
+                            <input  
+                                type="number"  
+                                name="harga_per_kg"  
+                                value={formData.harga_per_kg}  
+                                onChange={handleChange}  
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"  
+                                required  
+                            />  
+                        </div>  
+                        <div>  
+                            <label className="block text-sm font-medium text-gray-700">Deskripsi</label>  
+                            <textarea  
+                                name="deskripsi"  
+                                value={formData.deskripsi}  
+                                onChange={handleChange}  
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"  
+                                required  
+                            ></textarea>  
+                        </div>  
+                        <div className="flex justify-between mt-6">  
+                            <button  
+                                type="button"  
+                                onClick={() => navigate('/dashboard')}  
+                                className="bg-green-500 px-4 py-2 text-sm text-white rounded hover:bg-green-600"  
+                            >  
+                                Cancel  
+                            </button>  
+                            <button  
+                                type="submit"  
+                                className="bg-blue-500 px-4 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-600"  
+                            >  
+                                Submit  
+                            </button>  
+                        </div>  
+                    </form>  
+                </div>  
+            </main>  
   
-const resetForm = () => {      
-    setServiceName("");      
-    setDescription("");      
-    setPrice("");      
-    setEditingService(null);      
-    setSuccessMessage("");      
-};      
+            {/* Footer */}  
+            <footer className="bg-blue-500 text-white py-4 text-center text-sm">  
+                © 2025 Laundry POS. All Rights Reserved.  
+            </footer>  
+        </div>  
+    );  
+};  
   
-return (      
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center py-10">      
-      <h2 className="text-3xl font-bold text-blue-600 mb-6">      
-        {editingService ? "Edit Layanan" : "Tambah Layanan Baru"}      
-      </h2>      
-      {error && <p className="text-red-500 mb-4">{error}</p>}      
-      {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}      
-      <form      
-        onSubmit={handleSubmit}      
-        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg"      
-      >      
-        {/* Nama Layanan */}      
-        <div className="mb-4">      
-          <label      
-            htmlFor="serviceName"      
-            className="block text-gray-700 font-medium mb-2"      
-          >      
-            Nama Layanan      
-          </label>      
-          <input      
-            type="text"      
-            id="serviceName"      
-            value={serviceName}      
-            onChange={(e) => setServiceName(e.target.value)}      
-            placeholder="Masukkan nama layanan"      
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"      
-            required      
-          />      
-        </div>      
-  
-        {/* Deskripsi Layanan */}      
-        <div className="mb-4">      
-          <label      
-            htmlFor="description"      
-            className="block text-gray-700 font-medium mb-2"      
-          >      
-            Deskripsi Layanan      
-          </label>      
-          <textarea      
-            id="description"      
-            value={description}      
-            onChange={(e) => setDescription(e.target.value)}      
-            placeholder="Deskripsi singkat layanan"      
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"      
-            rows="4"      
-            required      
-          ></textarea>      
-        </div>      
-  
-        {/* Harga */}      
-        <div className="mb-4">      
-          <label      
-            htmlFor="price"      
-            className="block text-gray-700 font-medium mb-2"      
-          >      
-            Harga      
-          </label>      
-          <input      
-            type="number"      
-            id="price"      
-            value={price}      
-            onChange={(e) => setPrice(e.target.value)}      
-            placeholder="Masukkan harga layanan (Rp)"      
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"      
-            required      
-          />      
-        </div>      
-  
-        {/* Tombol Simpan */}      
-        <div className="flex justify-between justify-items-center">      
-          <button      
-            type="button"      
-            onClick={resetForm}      
-            className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"      
-          >      
-            Reset      
-          </button>      
-          <button      
-            type="submit"      
-            className="mt-6 bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition"      
-          >      
-            {editingService ? "Simpan Perubahan" : "Simpan Layanan"}      
-          </button>      
-        </div>      
-      </form> 
-      <button
-        onClick={() => window.history.back()}
-        className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
-        Kembali
-      </button>     
-    </div>
-    
-     
-  );      
-};      
-  
-export default LayananManager;      
+export default TambahLayanan;  
