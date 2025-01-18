@@ -1,5 +1,7 @@
 from app import db  
-from app.model.transaksi import Transaksi  
+from app.model.transaksi import Transaksi
+from app.model.pelanggan import Pelanggan
+from app.model.layanan import Layanan  
 from app import response  
 from flask import request  
   
@@ -21,7 +23,8 @@ def update_status_transaksi(id):
             return response.badRequest([], 'Transaksi tidak ditemukan')  
   
         # Mengambil status baru dari permintaan  
-        status_baru = request.form.get('status')  
+        data = request.get_json()  # Pastikan Anda menggunakan get_json() untuk mengambil data JSON  
+        status_baru = data.get('status')  
         if status_baru not in ['Pending', 'Selesai']:  
             return response.badRequest([], 'Status tidak valid')  
   
@@ -31,19 +34,24 @@ def update_status_transaksi(id):
     except Exception as e:  
         print(e)  
         return response.badRequest([], 'Terjadi kesalahan saat mengubah status transaksi')  
-  
-# Fungsi untuk format transaksi  
-def format_transaksi(datas):  
-    array = []  
-    for i in datas:  
-        array.append({  
-            'id': i.id,  
-            'id_pelanggan': i.id_pelanggan,  
-            'id_layanan': i.id_layanan,  
-            'berat': i.berat,  
-            'total_harga': i.total_harga,  
-            'status': i.status,  
-            'created_at': i.created_at,  
-            'updated_at': i.updated_at  
-        })  
-    return array  
+
+# Fungsi untuk format transaksi    
+def format_transaksi(datas):    
+    array = []    
+    for i in datas:    
+        # Ambil nama pelanggan dan nama layanan berdasarkan ID    
+        pelanggan = Pelanggan.query.get(i.id_pelanggan)    
+        layanan = Layanan.query.get(i.id_layanan)    
+            
+        array.append({    
+            'id': i.id,    
+            'nama_pelanggan': pelanggan.nama if pelanggan else 'Tidak Ditemukan',  # Ganti ID pelanggan dengan nama    
+            'nama_layanan': layanan.nama_layanan if layanan else 'Tidak Ditemukan',  # Ganti ID layanan dengan nama_layanan    
+            'berat': i.berat,    
+            'total_harga': i.total_harga,    
+            'status': i.status,    
+            'created_at': i.created_at,    
+            'updated_at': i.updated_at    
+        })    
+    return array   
+ 
