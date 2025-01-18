@@ -1,5 +1,6 @@
 from app.model.pelanggan import Pelanggan    
-from app.model.transaksi import Transaksi, Layanan    
+from app.model.transaksi import Transaksi
+from app.model.layanan import Layanan    
 from app import response, app, db    
 from flask import request    
   
