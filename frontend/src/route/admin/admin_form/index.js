@@ -13,9 +13,14 @@ const Admin = () => {
   
   const [layananList, setLayananList] = useState([]); // State untuk menyimpan daftar layanan      
   
-  useEffect(() => {      
-    fetchLayanan(); // Ambil data layanan saat komponen dimuat      
-  }, []);      
+  useEffect(() => {  
+      fetchLayanan(); // Ambil data layanan saat komponen dimuat
+      const user = JSON.parse(sessionStorage.getItem("user"));  
+      if (!user) {  
+        // Jika pengguna tidak login, redirect ke halaman login  
+        navigate('/login');    
+      }  
+    }, [navigate]);    
   
   const fetchLayanan = async () => {      
     try {      

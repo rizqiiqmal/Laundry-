@@ -88,13 +88,7 @@ function Login() {
           >  
             Login  
           </button>  
-        </form>  
-        <button  
-          onClick={() => window.history.back()}  
-          className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"  
-        >  
-          Kembali  
-        </button>  
+        </form>   
       </div>  
     </div>  
   );  

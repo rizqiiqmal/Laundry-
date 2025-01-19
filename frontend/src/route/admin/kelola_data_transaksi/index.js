@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";      
-  
-const KelolaDataTransaksi = () => {      
+import { useNavigate } from 'react-router-dom';
+
+const KelolaDataTransaksi = () => {
+  const navigate = useNavigate();      
   const [searchQuery, setSearchQuery] = useState("");      
   const [transactions, setTransactions] = useState([]);      
   
   // Mengambil data transaksi dari API saat komponen dimuat      
   useEffect(() => {      
     fetchTransactions();      
-  }, []);      
+    const user = JSON.parse(sessionStorage.getItem("user"));  
+    if (!user) {  
+      // Jika pengguna tidak login, redirect ke halaman login  
+      navigate('/login');  
+    }  
+  }, [navigate]);      
   
   const fetchTransactions = async () => {      
     try {      
