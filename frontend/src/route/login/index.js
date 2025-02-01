@@ -42,10 +42,11 @@ function Login() {
   
   return (  
     <div className="flex items-center justify-center min-h-screen bg-gray-100">  
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">  
-        <h2 className="mb-6 text-2xl font-semibold text-center text-gray-800">  
+      <div className="w-full items-center justify-center max-w-md p-8 bg-white rounded-lg shadow-md ">       
+        <h2 className="mb-2 text-2xl font-semibold text-center text-gray-800">  
           Login  
-        </h2>  
+        </h2> 
+        <img src="Proyek5.png" className="w-1/2 ml-24"/>      
         {error && <p className="text-red-500 text-center">{error}</p>}  
         <form onSubmit={handleSubmit}>  
           <div className="mb-4">  

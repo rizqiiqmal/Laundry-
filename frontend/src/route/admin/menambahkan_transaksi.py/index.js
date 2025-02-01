@@ -7,8 +7,8 @@ const Admin = () => {
     navigate('/dashboard');
   };
 
-  const tambahBtn = () => {
-    navigate('/admin_form');
+  const layananBtn = () => {
+    navigate('/tambahlayanan');
   };
 
   const kelolaBtn = () => {
@@ -22,8 +22,6 @@ const Admin = () => {
   const detailBtn = () => {
     navigate('/detail_layanan');
   };
-
-  
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nama: '',
@@ -137,16 +135,88 @@ const Admin = () => {
           <FaSignOutAlt /> <span>Logout</span>
         </button>
       </aside>
-      <div className="flex-grow container mx-auto py-52 px-6 text-center">
-        <div className="bg-white shadow-lg rounded-xl p-8 max-w-xl mx-auto transform hover:scale-105 transition duration-300">
-          <button 
-            onClick={tambahBtn} 
-            className="text-2xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">
-            Tambahkan Transaksi Pelanggan
-          </button>
-        </div>
-      </div>
 
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col items-center py-10">
+        <h2 className="text-3xl font-bold text-blue-600 mb-6">Form Input Data</h2>
+
+        {/* Form Section */}
+        <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Nama</label>
+              <input
+                type="text"
+                name="nama"
+                value={formData.nama}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Alamat</label>
+              <input
+                type="text"
+                name="alamat"
+                value={formData.alamat}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">No Hp</label>
+              <input
+                type="text"
+                name="nomor_telepon"
+                value={formData.nomor_telepon}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Layanan</label>
+              <select
+                name="id_layanan"
+                value={formData.id_layanan}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
+              >
+                <option value="">Pilih Layanan</option>
+                {layananList.map((layanan) => (
+                  <option key={layanan.id} value={layanan.id}>
+                    {layanan.nama_layanan}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Berat (kg)</label>
+              <input
+                type="number"
+                name="berat"
+                value={formData.berat}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-lg"
+              />
+            </div>
+            <div className="flex justify-between mt-6">
+              <button
+                type="button"
+                onClick={() => navigate('/dashboard')}
+                className="bg-green-500 px-4 py-2 text-sm text-white rounded hover:bg-green-600"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 px-4 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-600"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
     </div>
   );
 };

@@ -39,7 +39,7 @@ function hubungiBtn(){
       </header>
 
       {/* Tentang Kami Section */}
-      <section className="flex-grow py-20" id="about">
+      <section className="flex-grow py-6" id="about">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-blue-600 mb-8 text-center">
             Tentang Kami
@@ -48,9 +48,9 @@ function hubungiBtn(){
             {/* Gambar atau Ilustrasi */}
             <div className="md:w-1/2 mb-6 md:mb-0">
               <img
-                src="https://via.placeholder.com/500x300"
+                src="Proyek5.png"
                 alt="Tentang Kami"
-                className="rounded-lg shadow-lg"
+                className="rounded-lg "
               />
             </div>
 
@@ -74,14 +74,6 @@ function hubungiBtn(){
                 serta hasil yang memuaskan!
               </p>
 
-              {/* Logo */}
-              <div className="mt-4">
-                <img
-                  src="https://img.icons8.com/?size=100&id=108885&format=png&color=000000"
-                  alt="Logo Laundry POS"
-                  className="w-24 h-24 rounded-full shadow-md"
-                />
-              </div>
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import TentangKami from './tentangKami';
 import LandingPage from './landing page';
 
 import AdminDashboard from './admin/dashboad';
-import AdminForm from './admin/admin_form';
+import AdminForm from './admin/menambahkan_transaksi.py';
 import TmbhLayanan from "./admin/tambah_layanan";
 import KelolaDataTransaksi from "./admin/kelola_data_transaksi";
 import DaftarTransaksi from "./admin/daftar_transaksi";
