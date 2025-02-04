@@ -41,10 +41,16 @@ function Login() {
   };  
   
   return (  
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">  
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">  
+    <div className="flex items-center justify-center min-h-screen bg-gray-100" style={{
+      backgroundImage: 'url("bg1.jpg")', // Replace with your image URL
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>   
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+      <img src="logo.png" alt="Logo" className="mx-auto h-24 w-auto" /> 
         <h2 className="mb-6 text-2xl font-semibold text-center text-gray-800">  
-          Login  
+          Laundry POS  
         </h2>  
         {error && <p className="text-red-500 text-center">{error}</p>}  
         <form onSubmit={handleSubmit}>  

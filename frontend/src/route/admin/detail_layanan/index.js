@@ -73,11 +73,80 @@ const DetailLayananPage = () => {
     }  
   };  
   
+  const handleLogout = () => {
+    sessionStorage.removeItem("user"); // Hapus data pengguna dari sessionStorage
+    navigate('/login'); // Redirect ke halaman login
+  };
+
+  const tambahBtn = () => {
+    navigate('/dashboard');
+  };
+
+  const kelolaBtn = () => {
+    navigate('/kelola_data_transaksi');
+  };
+
+  const DaftarBtn = () => {
+    navigate('/daftar_transaksi');
+  };
+
+  const detailBtn = () => {
+    navigate('/detail_layanan');
+  };
+
+  const layananBtn = () => {
+    navigate('/tambahlayanan');
+  };
+
   return (  
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center py-10">  
-      <h2 className="text-3xl font-bold text-blue-600 mb-6">Daftar Layanan</h2>  
-  
-      <div className="bg-white w-full max-w-4xl p-6 rounded-lg shadow-lg">  
+    <div className="min-h-screen flex">         
+      <aside className="w-64 bg-blue-500 text-white p-6 hidden md:block">
+        <div className="flex items-center gap-4 mb-8">
+          <img src="logo.png" alt="Logo" className="h-12 w-13" /> {/* Logo */}
+          <h1 className="text-xl font-bold">Laundry POS</h1>
+        </div>
+        <nav>
+          <ul className="space-y-4">
+            <li>
+              <button onClick={tambahBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
+              Tambah Transaksi
+              </button>
+            </li>
+            <li>
+              <button onClick={kelolaBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
+                Mengelola Data Transaksi
+              </button>
+            </li>
+            <li>
+              <button onClick={DaftarBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
+                Daftar Transaksi
+              </button>
+            </li>
+            <li>
+              <button onClick={detailBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
+                Detail Layanan
+              </button>
+            </li>
+            <li>
+              <button onClick={layananBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
+                tambah Layanan
+              </button>
+            </li>
+            <li>
+              <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-red-400 transition">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <div className="w-full md:w-3/4 p-6" style={{
+        backgroundImage: 'url("bg2.jpg")', // Replace with your image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}>   
+      <div className="flex w-full max-w-4xl justify-between mt-20 mb-4">  
         <table className="w-full border-collapse">  
           <thead>  
             <tr className="bg-blue-500 text-white">  
@@ -92,7 +161,7 @@ const DetailLayananPage = () => {
               <tr key={layanan.id} className="text-center">  
                 <td className="px-4 py-2 border">{layanan.nama_layanan}</td>  
                 <td className="px-4 py-2 border">{layanan.deskripsi}</td>  
-                <td className="px-4 py-2 border">Rp {layanan.harga_per_kg}</td>  
+                <td className="px-4 py-2 border">Rp.{layanan.harga_per_kg}</td>  
                 <td className="px-4 py-2 border">  
                   <button  
                     onClick={() => handleEdit(layanan)}  
@@ -160,7 +229,8 @@ const DetailLayananPage = () => {
         className="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"  
       >  
         Kembali  
-      </button>  
+      </button>
+      </div>  
     </div>  
   );  
 };  

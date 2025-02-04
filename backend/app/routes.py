@@ -1,7 +1,8 @@
-from app import app    
+from app import app
+from flask import Flask, request, jsonify   
 from app.controller.DashboardController import add_pelanggan_dan_layanan, index_layanan    
 from app.controller.LayananController import index_layanan, add_layanan, edit_layanan, delete_layanan    
-from app.controller.TransaksiController import index_transaksi, update_status_transaksi    
+from app.controller.TransaksiController import index_transaksi, update_status_transaksi, send_whatsapp_message    
 from app.controller.DetailController import detail_transaksi  
 from app.controller.AuthController import login_admin    
 from app.controller.UserController import register_admin    
@@ -60,3 +61,19 @@ def delete_layanan_route(id):
 @app.route('/add_pelanggan_dan_layanan', methods=['POST'])    
 def add_pelanggan_dan_layanan_route():    
     return add_pelanggan_dan_layanan()  
+
+# Route untuk mengirim pesan WhatsApp
+@app.route('/send-whatsapp', methods=['POST'])
+def send_whatsapp_route():
+    data = request.get_json()
+    
+    if not data or 'id_pelanggan' not in data:
+        return jsonify({'error': 'Invalid request. Please provide a valid JSON with id_pelanggan.'}), 400
+    
+    id_pelanggan = data['id_pelanggan']
+    
+    try:
+        send_whatsapp_message(id_pelanggan)
+        return jsonify({'message': 'WhatsApp message sent successfully.'}), 200
+    except Exception as e:
+        return jsonify({'error': f'Failed to send WhatsApp message: {str(e)}'}), 500

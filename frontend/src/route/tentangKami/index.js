@@ -48,9 +48,8 @@ function hubungiBtn(){
             {/* Gambar atau Ilustrasi */}
             <div className="md:w-1/2 mb-6 md:mb-0">
               <img
-                src="https://via.placeholder.com/500x300"
+                src="logo.png"
                 alt="Tentang Kami"
-                className="rounded-lg shadow-lg"
               />
             </div>
 
@@ -73,15 +72,6 @@ function hubungiBtn(){
                 Jadi, percayakan pakaian Anda kepada kami, dan nikmati kemudahan
                 serta hasil yang memuaskan!
               </p>
-
-              {/* Logo */}
-              <div className="mt-4">
-                <img
-                  src="https://img.icons8.com/?size=100&id=108885&format=png&color=000000"
-                  alt="Logo Laundry POS"
-                  className="w-24 h-24 rounded-full shadow-md"
-                />
-              </div>
             </div>
           </div>
         </div>

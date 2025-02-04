@@ -62,9 +62,8 @@ function hubungiBtn(){
           </div>
           <div className="md:w-1/2 mt-10 md:mt-0">
             <img
-              src="https://via.placeholder.com/400x300"
+              src="logo.png"
               alt="Laundry Illustration"
-              className="rounded-lg shadow-lg"
             />
           </div>
         </div>
