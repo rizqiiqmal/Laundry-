@@ -67,7 +67,7 @@ function hubungiBtn(){
       </header>
 
       {/* Layanan Kami Section */}
-      <section className="flex-grow py-6" id="services">
+      <section className="flex-grow py-20" id="services">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-blue-600 mb-8 text-center">
             Layanan Kami

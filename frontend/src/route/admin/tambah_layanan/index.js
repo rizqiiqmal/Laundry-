@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";  
+import { useNavigate } from 'react-router-dom';  
+  
+const TambahLayanan = () => {  
+    const navigate = useNavigate();  
+    const [formData, setFormData] = useState({  
+        nama_layanan: '',  
+        harga_per_kg: '',  
+        deskripsi: ''  
+    });  
 
-const TambahLayanan = () => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        nama_layanan: '',
-        harga_per_kg: '',
-        deskripsi: ''
-    });
-
-    useEffect(() => {
-        const user = JSON.parse(sessionStorage.getItem("user"));
-        if (!user) {
-            navigate('/login'); // Jika pengguna tidak login, redirect ke halaman login
-        }
+    useEffect(() => {      
+        const user = JSON.parse(sessionStorage.getItem("user"));  
+        if (!user) {  
+        // Jika pengguna tidak login, redirect ke halaman login  
+        navigate('/login');  
+        }  
     }, [navigate]);
 
     const handleChange = (e) => {  
