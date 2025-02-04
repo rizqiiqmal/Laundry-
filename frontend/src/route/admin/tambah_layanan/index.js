@@ -1,20 +1,39 @@
-import React, { useState, useEffect } from "react";  
-import { useNavigate } from 'react-router-dom';  
-  
-const TambahLayanan = () => {  
-    const navigate = useNavigate();  
-    const [formData, setFormData] = useState({  
-        nama_layanan: '',  
-        harga_per_kg: '',  
-        deskripsi: ''  
-    });  
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { FaChartLine, FaClipboardList, FaUsers, FaMoneyBillWave, FaSignOutAlt } from "react-icons/fa";
 
-    useEffect(() => {      
-        const user = JSON.parse(sessionStorage.getItem("user"));  
-        if (!user) {  
-        // Jika pengguna tidak login, redirect ke halaman login  
-        navigate('/login');  
-        }  
+const TambahLayanan = () => {
+    const AdminFormBtn = () => {
+        navigate('/dashboard');
+      };
+    
+      const layananBtn = () => {
+        navigate('/tambahlayanan');
+      };
+    
+      const kelolaBtn = () => {
+        navigate('/kelola_data_transaksi');
+      };
+    
+      const DaftarBtn = () => {
+        navigate('/daftar_transaksi');
+      };
+    
+      const detailBtn = () => {
+        navigate('/detail_layanan');
+      };
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        nama_layanan: '',
+        harga_per_kg: '',
+        deskripsi: ''
+    });
+
+    useEffect(() => {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if (!user) {
+            navigate('/login'); // Jika pengguna tidak login, redirect ke halaman login
+        }
     }, [navigate]);
 
     const handleChange = (e) => {  
