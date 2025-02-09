@@ -7,7 +7,6 @@ const DaftarTransaksi = () => {
   const [transactions, setTransactions] = useState([]);    
   const [currentPage, setCurrentPage] = useState(1); 
   const [selectedTransaction, setSelectedTransaction] = useState(null); // State for selected transaction
-  const transactionsPerPage = 5; 
 
   useEffect(() => {    
     fetchTransactions();
