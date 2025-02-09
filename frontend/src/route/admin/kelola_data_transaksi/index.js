@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";          
 import { useNavigate } from 'react-router-dom';    
-    
+import { addCSSInHead } from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
+import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
+
+await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
+
 const KelolaDataTransaksi = () => {    
   const navigate = useNavigate();          
   const [searchQuery, setSearchQuery] = useState("");          
@@ -23,11 +27,19 @@ const KelolaDataTransaksi = () => {
       if (response.ok) {          
         setTransactions(data.data.filter(transaction => transaction.status === 'Pending'));          
       } else {          
-        alert('Error fetching transactions: ' + data.message);          
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: 'Error fetching transactions: ' + data.message,
+        });
       }          
     } catch (error) {          
       console.error('Error:', error);          
-      alert('Terjadi kesalahan saat mengambil data transaksi');          
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: 'Terjadi kesalahan saat mengambil data transaksi',
+      });
     }          
   };          
       
@@ -36,8 +48,16 @@ const KelolaDataTransaksi = () => {
   };          
       
   const handleStatusChange = async (id, nomorTelepon) => {          
-    const confirmChange = window.confirm("Apakah Anda yakin ingin mengubah status menjadi Selesai?");          
-    if (!confirmChange) return;          
+    const confirmChange = await Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: 'Anda akan melanjutkan tindakan ini.',
+      icon: 'warning',
+      showCancelButton: true,  // Menampilkan tombol Cancel
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel'
+    });
+
+    if (!confirmChange.isConfirmed) return;          
       
     try {          
       const response = await fetch(`http://localhost:5000/transaksi/${id}`, {          
@@ -50,14 +70,26 @@ const KelolaDataTransaksi = () => {
       
       const data = await response.json();          
       if (response.ok) {          
-        alert('Status transaksi berhasil diubah: ' + data.message);          
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil",
+          text: 'Status transaksi berhasil diubah: ' + data.message,
+        });
         fetchTransactions();          
       } else {          
-        alert('Error: ' + data.message);          
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: 'Error: ' + data.message,
+        });
       }          
     } catch (error) {          
       console.error('Error:', error);          
-      alert('Terjadi kesalahan saat mengubah status transaksi');          
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: 'Terjadi kesalahan saat mengubah status transaksi',
+      });
     }          
   };    
       

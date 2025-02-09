@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";        
 import { useNavigate } from 'react-router-dom';        
+import {addCSSInHead} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
+import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
+
+await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
   
 const Admin = () => {        
   const navigate = useNavigate();        
@@ -53,11 +57,19 @@ const Admin = () => {
       if (response.ok) {      
         setLayananList(data.data); // Simpan data layanan ke state      
       } else {      
-        alert('Error fetching layanan: ' + data.message);      
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: 'Error fetching layanan: ' + data.message,
+        });
       }      
     } catch (error) {      
       console.error('Error:', error);      
-      alert('Terjadi kesalahan saat mengambil data layanan');      
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: 'Terjadi kesalahan saat mengambil data layanan',
+      });
     }      
   };      
   
@@ -72,7 +84,13 @@ const Admin = () => {
           ...formData,        
           [name]: value        
         });  
-      }  
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Nomor telepon hanya boleh mengandung angka dan tidak boleh lebih dari 14 digit.",
+        });
+      }
     } else {  
       setFormData({        
         ...formData,        
@@ -86,7 +104,11 @@ const Admin = () => {
       
     // Validasi nomor telepon  
     if (formData.nomor_telepon.length > 14) {  
-      alert("Nomor telepon tidak boleh lebih dari 14 digit.");  
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Nomor telepon tidak boleh lebih dari 14 digit.",
+      });
       return;  
     }  
   
@@ -106,15 +128,23 @@ const Admin = () => {
         })          
       });          
       const data = await response.json();          
-      if (response.ok) {          
-        alert('Data berhasil disimpan: ' + data.message);          
+      if (response.ok) {        
+        Swal.fire('Berhasil', 'Data pelanggan telah di inputkan.', 'success');  
         navigate('/dashboard');          
       } else {          
-        alert('Error: ' + data.message);          
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: 'Error: ' + data.message,
+        });
       }          
     } catch (error) {          
       console.error('Error:', error);          
-      alert('Terjadi kesalahan saat mengirim data');          
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: 'Terjadi kesalahan saat mengirim data',
+      });
     }          
   };         
   

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";    
 import { useNavigate } from 'react-router-dom';
+import {addCSSInHead} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
+import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
+
+await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
 const DaftarTransaksi = () => {
   const navigate = useNavigate();    
@@ -7,6 +11,7 @@ const DaftarTransaksi = () => {
   const [transactions, setTransactions] = useState([]);    
   const [currentPage, setCurrentPage] = useState(1); 
   const [selectedTransaction, setSelectedTransaction] = useState(null); // State for selected transaction
+  const transactionsPerPage = 5; 
 
   useEffect(() => {    
     fetchTransactions();
@@ -24,11 +29,19 @@ const DaftarTransaksi = () => {
         const completedTransactions = data.data.filter(transaction => transaction.status === 'Selesai');    
         setTransactions(completedTransactions);    
       } else {    
-        alert('Error fetching transactions: ' + data.message);    
+        Swal.fire({
+          icon: "error",  
+          title: "Error",
+          text: "Error fetching transactions: " + data.message,
+        });
       }    
     } catch (error) {    
       console.error('Error:', error);    
-      alert('Terjadi kesalahan saat mengambil data transaksi');    
+      Swal.fire({
+        icon: "error",  
+        title: "Error",
+        text: "Terjadi kesalahan saat mengambil data transaksi",
+      });
     }    
   };    
     

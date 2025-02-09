@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";  
 import { useNavigate } from 'react-router-dom';  
-  
+import { addCSSInHead } from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
+import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
+
+await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
+
 const DetailLayananPage = () => {  
   const navigate = useNavigate();  
   const [layananList, setLayananList] = useState([]);  
@@ -29,11 +33,19 @@ const DetailLayananPage = () => {
       if (response.ok) {  
         setLayananList(data.data); // Pastikan data.data sesuai dengan struktur respons  
       } else {  
-        alert('Error fetching data: ' + data.message);  
+        Swal.fire({
+          icon: "error",  
+          title: "Error",  
+          text: "Error fetching data: " + data.message,  
+        });
       }  
     } catch (error) {  
       console.error('Error:', error);  
-      alert('Terjadi kesalahan saat mengambil data');  
+      Swal.fire({
+        icon: "error",  
+        title: "Error",  
+        text: "Terjadi kesalahan saat mengambil data",  
+      });
     }  
   };  
   
@@ -60,16 +72,28 @@ const DetailLayananPage = () => {
       });  
       const data = await response.json();  
       if (response.ok) {  
-        alert('Layanan berhasil diperbarui: ' + data.message);  
+        Swal.fire({
+          icon: "success",  
+          title: "Berhasil",  
+          text: "Layanan berhasil diperbarui: " + data.message,  
+        });
         fetchLayanan();  
         setEditingLayanan(null);  
         setFormData({ nama_layanan: '', harga_per_kg: '', deskripsi: '' });  
       } else {  
-        alert('Error: ' + data.message);  
+        Swal.fire({
+          icon: "error",  
+          title: "Error",  
+          text: "Error: " + data.message,  
+        });
       }  
     } catch (error) {  
       console.error('Error:', error);  
-      alert('Terjadi kesalahan saat memperbarui data');  
+      Swal.fire({
+        icon: "error",  
+        title: "Error",  
+        text: "Terjadi kesalahan saat memperbarui data",  
+      });
     }  
   };  
   
