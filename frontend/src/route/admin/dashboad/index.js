@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '../../../components/Sidebar';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -11,86 +13,25 @@ const AdminDashboard = () => {
       navigate('/login');
     }
   }, [navigate]);
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("user"); // Hapus data pengguna dari sessionStorage
-    navigate('/login'); // Redirect ke halaman login
-  };
+  
 
   const AdminFormBtn = () => {
     navigate('/admin_form');
   };
 
-  const tambahBtn = () => {
-    navigate('/dashboard');
-  };
-
-  const kelolaBtn = () => {
-    navigate('/kelola_data_transaksi');
-  };
-
-  const DaftarBtn = () => {
-    navigate('/daftar_transaksi');
-  };
-
-  const detailBtn = () => {
-    navigate('/detail_layanan');
-  };
-
-  const layananBtn = () => {
-    navigate('/tambahlayanan');
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-blue-500 text-white p-6 hidden md:block">
-        <div className="flex items-center gap-4 mb-8">
-          <img src="logo.png" alt="Logo" className="h-12 w-13" /> {/* Logo */}
-          <h1 className="text-xl font-bold">Laundry POS</h1>
-        </div>
-        <nav>
-          <ul className="space-y-4">
-            <li>
-              <button onClick={tambahBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Tambah Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={kelolaBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Mengelola Data Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={DaftarBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Daftar Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={detailBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Detail Layanan
-              </button>
-            </li>
-            <li>
-              <button onClick={layananBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                tambah Layanan
-              </button>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-red-400 transition">
-                Logout
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
-      {/* Main Content */}
+      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <main className="flex-grow flex items-center justify-center" style={{
         backgroundImage: 'url("bg1.png")', // Replace with your image URL
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        transition: 'filter 0.3s ease-in-out',
       }}>
         {/* Title Section */}
         <div className="">
@@ -99,6 +40,14 @@ const AdminDashboard = () => {
           </button>
         </div>
       </main>
+      <button 
+        onClick={toggleSidebar} 
+        className="md:hidden fixed top-4 left-4 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
     </div>
   );
 };

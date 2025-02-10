@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';  
 import { addCSSInHead } from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
 import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
+import Sidebar from '../../../components/Sidebar';
 
 await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
 const DetailLayananPage = () => {  
   const navigate = useNavigate();  
   const [layananList, setLayananList] = useState([]);  
-  const [editingLayanan, setEditingLayanan] = useState(null);  
+  const [editingLayanan, setEditingLayanan] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);  
   const [formData, setFormData] = useState({  
     nama_layanan: '',  
     harga_per_kg: '',  
@@ -96,80 +98,15 @@ const DetailLayananPage = () => {
       });
     }  
   };  
-  
-  const handleLogout = () => {
-    sessionStorage.removeItem("user"); // Hapus data pengguna dari sessionStorage
-    navigate('/login'); // Redirect ke halaman login
-  };
 
-  const tambahBtn = () => {
-    navigate('/dashboard');
-  };
-
-  const kelolaBtn = () => {
-    navigate('/kelola_data_transaksi');
-  };
-
-  const DaftarBtn = () => {
-    navigate('/daftar_transaksi');
-  };
-
-  const detailBtn = () => {
-    navigate('/detail_layanan');
-  };
-
-  const layananBtn = () => {
-    navigate('/tambahlayanan');
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (  
     <div className="min-h-screen flex">         
-      <aside className="w-64 bg-blue-500 text-white p-6 hidden md:block">
-        <div className="flex items-center gap-4 mb-8">
-          <img src="logo.png" alt="Logo" className="h-12 w-13" /> {/* Logo */}
-          <h1 className="text-xl font-bold">Laundry POS</h1>
-        </div>
-        <nav>
-          <ul className="space-y-4">
-            <li>
-              <button onClick={tambahBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-              Tambah Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={kelolaBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Mengelola Data Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={DaftarBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Daftar Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={detailBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Detail Layanan
-              </button>
-            </li>
-            <li>
-              <button onClick={layananBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                tambah Layanan
-              </button>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-red-400 transition">
-                Logout
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-      <div className="w-full md:w-3/4 p-6" style={{
-        backgroundImage: 'url("bg2.jpg")', // Replace with your image URL
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}>   
+      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      <div className="w-full md:w-3/4 p-6">   
       <div className="flex w-full max-w-4xl justify-between mt-20 mb-4">  
         <table className="w-full border-collapse">  
           <thead>  
@@ -254,7 +191,15 @@ const DetailLayananPage = () => {
       >  
         Kembali  
       </button>
-      </div>  
+      </div>
+      <button 
+        onClick={toggleSidebar} 
+        className="md:hidden fixed top-4 left-4 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>   
     </div>  
   );  
 };  

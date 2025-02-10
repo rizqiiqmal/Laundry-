@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';        
 import {addCSSInHead} from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
 import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
+import Sidebar from '../../../components/Sidebar';
 
 await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
   
@@ -14,83 +15,43 @@ const Admin = () => {
     id_layanan: '',        
     berat: ''        
   });        
-  const handleLogout = () => {
-    sessionStorage.removeItem("user"); // Hapus data pengguna dari sessionStorage
-    navigate('/login'); // Redirect ke halaman login
-  };
 
-  const tambahBtn = () => {
-    navigate('/dashboard');
-  };
+  const [layananList, setLayananList] = useState([]); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Default sidebar tertutup
 
-  const kelolaBtn = () => {
-    navigate('/kelola_data_transaksi');
-  };
-
-  const DaftarBtn = () => {
-    navigate('/daftar_transaksi');
-  };
-
-  const detailBtn = () => {
-    navigate('/detail_layanan');
-  };
-
-  const layananBtn = () => {
-    navigate('/tambahlayanan');
-  };
-
-  const [layananList, setLayananList] = useState([]); // State untuk menyimpan daftar layanan      
-  
   useEffect(() => {  
-      fetchLayanan(); // Ambil data layanan saat komponen dimuat
+      fetchLayanan(); 
       const user = JSON.parse(sessionStorage.getItem("user"));  
       if (!user) {  
-        // Jika pengguna tidak login, redirect ke halaman login  
         navigate('/login');    
       }  
     }, [navigate]);    
   
   const fetchLayanan = async () => {      
     try {      
-      const response = await fetch('http://localhost:5000/layanan'); // Ganti dengan endpoint yang sesuai      
+      const response = await fetch('http://localhost:5000/layanan'); 
       const data = await response.json();      
       if (response.ok) {      
-        setLayananList(data.data); // Simpan data layanan ke state      
+        setLayananList(data.data); 
       } else {      
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: 'Error fetching layanan: ' + data.message,
-        });
+        alert('Error fetching layanan: ' + data.message);      
       }      
     } catch (error) {      
       console.error('Error:', error);      
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: 'Terjadi kesalahan saat mengambil data layanan',
-      });
+      alert('Terjadi kesalahan saat mengambil data layanan');      
     }      
   };      
   
   const handleChange = (e) => {        
     const { name, value } = e.target;  
   
-    // Validasi untuk nomor telepon  
     if (name === "nomor_telepon") {  
-      // Hanya izinkan angka dan batasi panjangnya  
       if (/^\d*$/.test(value) && value.length <= 14) {  
         setFormData({        
           ...formData,        
           [name]: value        
         });  
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Nomor telepon hanya boleh mengandung angka dan tidak boleh lebih dari 14 digit.",
-        });
-      }
+      }  
     } else {  
       setFormData({        
         ...formData,        
@@ -102,17 +63,11 @@ const Admin = () => {
   const handleSubmit = async (e) => {          
     e.preventDefault();          
       
-    // Validasi nomor telepon  
     if (formData.nomor_telepon.length > 14) {  
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Nomor telepon tidak boleh lebih dari 14 digit.",
-      });
+      alert("Nomor telepon tidak boleh lebih dari 14 digit.");  
       return;  
     }  
   
-    console.log('Form Data:', formData); // Tambahkan log ini          
     try {          
       const response = await fetch('http://localhost:5000/add_pelanggan_dan_layanan', {          
         method: 'POST',          
@@ -124,7 +79,7 @@ const Admin = () => {
           nomor_telepon: formData.nomor_telepon,          
           alamat: formData.alamat,          
           id_layanan: formData.id_layanan,          
-          berat: formData.berat // Kirim berat sebagai string, konversi di backend        
+          berat: formData.berat        
         })          
       });          
       const data = await response.json();          
@@ -132,74 +87,28 @@ const Admin = () => {
         Swal.fire('Berhasil', 'Data pelanggan telah di inputkan.', 'success');  
         navigate('/dashboard');          
       } else {          
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: 'Error: ' + data.message,
-        });
+        alert('Error: ' + data.message);          
       }          
     } catch (error) {          
       console.error('Error:', error);          
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: 'Terjadi kesalahan saat mengirim data',
-      });
+      alert('Terjadi kesalahan saat mengirim data');          
     }          
   };         
   
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (        
     <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-blue-500 text-white p-6 hidden md:block">
-        <div className="flex items-center gap-4 mb-8">
-          <img src="logo.png" alt="Logo" className="h-12 w-13" /> {/* Logo */}
-          <h1 className="text-xl font-bold">Laundry POS</h1>
-        </div>
-        <nav>
-          <ul className="space-y-4">
-          <li>
-              <button onClick={tambahBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-              Tambah Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={kelolaBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Mengelola Data Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={DaftarBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Daftar Transaksi
-              </button>
-            </li>
-            <li>
-              <button onClick={detailBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                Detail Layanan
-              </button>
-            </li>
-            <li>
-              <button onClick={layananBtn} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-blue-600 transition">
-                tambah Layanan
-              </button>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm rounded hover:bg-red-400 transition">
-                Logout
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>      
-  
-      {/* Main Content */}        
-      <main className="flex-grow mx-auto py-10 px-4" style={{
-        backgroundImage: 'url("bg1.png")', // Replace with your image URL
+      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      <main className="flex-grow mx-auto py-10 px-4"style={{
+        backgroundImage: 'url("bg1.png")', 
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        transition: 'filter 0.3s ease-in-out',
       }}>            
-        {/* Form Section */}        
         <div className="bg-white shadow rounded-lg p-6 max-w-lg mx-auto">        
           <h1 className="text-2xl font-semibold text-gray-700 mb-4 text-center">Form Input Data</h1>        
           <form className="space-y-6" onSubmit={handleSubmit}>        
@@ -231,9 +140,7 @@ const Admin = () => {
                 value={formData.nomor_telepon}        
                 onChange={(e) => {
                   const inputValue = e.target.value;
-                  // Cek apakah input dimulai dengan '0'
                   if (inputValue.startsWith('0')) {
-                    // Ganti '0' dengan '62'
                     const newValue = '62' + inputValue.slice(1);
                     handleChange({ target: { name: 'nomor_telepon', value: newValue } });
                   } else {
@@ -288,6 +195,14 @@ const Admin = () => {
           </form>        
         </div>        
       </main>        
+      <button 
+        onClick={toggleSidebar} 
+        className="md:hidden fixed top-4 left-4 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
     </div>        
   );        
 };        
