@@ -14,17 +14,17 @@ const Home = () => {
   }
   function tentangBtn(){
     navigate('/tentang')  
-  }
-function hubungiBtn(){
-  navigate('/hubungi')  
-  }
+  }
+  function hubungiBtn(){
+    navigate('/hubungi')  
+  }
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-blue-500 text-white py-4">
+      <header className="bg-blue-500 text-white py-4 sticky top-0 z-50">
         <div className="container mx-auto flex justify-between items-center px-4">
           <h1 className="text-lg font-bold">Laundry POS</h1>
-          <nav>
+          <nav className="hidden md:flex">
             <ul className="flex space-x-6">
               <li><a href="#home" onClick={homeBtn}  className="hover:underline">Home</a></li>
               <li><a href="#layanan" onClick={layananBtn} className="hover:underline">Layanan Kami</a></li>
@@ -32,8 +32,13 @@ function hubungiBtn(){
               <li><a href="#tentang" onClick={tentangBtn}  className="hover:underline">Tentang Kami</a></li>
             </ul>
           </nav>
-          <button onClick={hubungiBtn} className="bg-green-500 px-4 py-2 rounded text-white hover:bg-green-600">
+          <button onClick={hubungiBtn} className="hidden md:block bg-green-500 px-4 py-2 rounded text-white hover:bg-green-600">
             Hubungi Kami 
+          </button>
+          <button className="md:hidden bg-green-500 p-2 rounded text-white" onClick={hubungiBtn}>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
           </button>
         </div>
       </header>
@@ -48,22 +53,21 @@ function hubungiBtn(){
               Pesan layanan laundry Anda kapan saja!
             </p>
             <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
-            <a
-                  href="https://wa.me/6281234567890"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center text-white-500 hover:underline"
-                >
-                  Pesan Sekarang
-                </a>
-                
-                 
+              <a
+                href="https://wa.me/6281234567890"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center text-white"
+              >
+                Pesan Sekarang
+              </a>
             </button>
           </div>
           <div className="md:w-1/2 mt-10 md:mt-0">
             <img
               src="logo.png"
               alt="Laundry Illustration"
+              className="w-full h-auto max-w-sm mx-auto"
             />
           </div>
         </div>

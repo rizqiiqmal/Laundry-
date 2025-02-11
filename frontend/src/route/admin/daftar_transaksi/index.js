@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { addCSSInHead } from "https://cdn.jsdelivr.net/gh/jscroot/lib@0.1.6/element.js";
 import Swal from 'https://cdn.jsdelivr.net/npm/sweetalert2@11/src/sweetalert2.js';
-import Sidebar from '../../../components/Sidebar'; // Import komponen Sidebar
+import Sidebar from '../../../components/Sidebar';
 
 await addCSSInHead("https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.css");
 
@@ -94,35 +94,35 @@ const DaftarTransaksi = () => {
             className="w-full md:w-1/2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"    
           />    
         </div>    
-        <div className="flex w-full max-w-4xl justify-between mb-4">    
-          <table className="w-full border-collapse">    
+        <div className="w-full overflow-x-auto">    
+          <table className="min-w-full border-collapse">    
             <thead>    
               <tr className="bg-blue-600 text-white">    
-                <th className="px-4 py-2">ID</th>    
-                <th className="px-4 py-2">Nama Pelanggan</th>    
-                <th className="px-4 py-2">No Telepon</th>    
-                <th className="px-4 py-2">Layanan</th>    
-                <th className="px-4 py-2">Total Harga (Rp)</th>    
-                <th className="px-4 py-2">Tanggal</th>    
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Struk</th>    
+                <th className="px-4 py-2 whitespace-nowrap">ID</th>    
+                <th className="px-4 py-2 whitespace-nowrap">Nama Pelanggan</th>    
+                <th className="px-4 py-2 whitespace-nowrap">No Telepon</th>    
+                <th className="px-4 py-2 whitespace-nowrap">Layanan</th>    
+                <th className="px-4 py-2 whitespace-nowrap">Total Harga (Rp)</th>    
+                <th className="px-4 py-2 whitespace-nowrap">Tanggal</th>    
+                <th className="px-4 py-2 whitespace-nowrap">Status</th>
+                <th className="px-4 py-2 whitespace-nowrap">Struk</th>    
               </tr>    
             </thead>    
             <tbody>    
               {currentTransactions.length > 0 ? (    
                 currentTransactions.map((transaction) => (    
                   <tr key={transaction.id} className="border-b hover:bg-blue-50">    
-                    <td className="px-4 py-2">{transaction.id}</td>    
-                    <td className="px-4 py-2">{transaction.nama_pelanggan}</td>    
-                    <td className="px-4 py-2">{transaction.nomor_telepon}</td>    
-                    <td className="px-4 py-2">{transaction.nama_layanan}</td>    
-                    <td className="px-4 py-2">Rp.{transaction.total_harga}</td>    
-                    <td className="px-4 py-2">{transaction.created_at}</td>
-                    <td className="px-4 py-2">{transaction.status}</td>    
-                    <td className="px-4 py-2 border">
+                    <td className="px-4 py-2 whitespace-nowrap">{transaction.id}</td>    
+                    <td className="px-4 py-2 whitespace-nowrap">{transaction.nama_pelanggan}</td>    
+                    <td className="px-4 py-2 whitespace-nowrap">{transaction.nomor_telepon}</td>    
+                    <td className="px-4 py-2 whitespace-nowrap">{transaction.nama_layanan}</td>    
+                    <td className="px-4 py-2 whitespace-nowrap">Rp.{transaction.total_harga}</td>    
+                    <td className="px-4 py-2 whitespace-nowrap">{transaction.created_at}</td>
+                    <td className="px-4 py-2 whitespace-nowrap">{transaction.status}</td>    
+                    <td className="px-4 py-2 whitespace-nowrap">
                       <button
                       onClick={() => handleClick(transaction)} 
-                      className="bg-yellow-500 text-white px-3 py-1 rounded-lg mr-2 hover:bg-yellow-600 transition" 
+                      className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition" 
                       >
                       Cetak
                       </button>
@@ -150,14 +150,14 @@ const DaftarTransaksi = () => {
             <button
               onClick={prevPage}
               disabled={currentPage === 1} 
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
             >
               Previous
             </button>
             <button
               onClick={nextPage}
               disabled={currentTransactions.length < transactionsPerPage} 
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
             >
               Next
             </button>
@@ -171,7 +171,7 @@ const DaftarTransaksi = () => {
             <p><strong>Nama Pelanggan:</strong> {selectedTransaction.nama_pelanggan}</p>
             <p><strong>No Telepon:</strong> {selectedTransaction.nomor_telepon}</p>
             <p><strong>Layanan:</strong> {selectedTransaction.nama_layanan}</p>
-            <p><strong>Total Harga:</strong>{selectedTransaction.total_harga}</p>
+            <p><strong>Total Harga:</strong> Rp.{selectedTransaction.total_harga}</p>
             <p><strong>Tanggal:</strong> {selectedTransaction.created_at}</p>
             <button 
               onClick={() => setSelectedTransaction(null)} 
@@ -194,4 +194,4 @@ const DaftarTransaksi = () => {
   );    
 };    
     
-export default DaftarTransaksi;    
+export default DaftarTransaksi;

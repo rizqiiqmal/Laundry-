@@ -107,8 +107,8 @@ const DetailLayananPage = () => {
     <div className="min-h-screen flex">         
       <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
       <div className="w-full md:w-3/4 p-6">   
-      <div className="flex w-full max-w-4xl justify-between mt-20 mb-4">  
-        <table className="w-full border-collapse">  
+      <div className="flex w-full max-w-4xl justify-between mt-20 mb-4 md:overflow-visible overflow-x-auto">  
+        <table className="w-full border-collapse min-w-max">  
           <thead>  
             <tr className="bg-blue-500 text-white">  
               <th className="px-4 py-2 border">Nama Layanan</th>  
@@ -204,4 +204,4 @@ const DetailLayananPage = () => {
   );  
 };  
   
-export default DetailLayananPage;  
+export default DetailLayananPage;

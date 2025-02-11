@@ -35,9 +35,14 @@ const AdminDashboard = () => {
       }}>
         {/* Title Section */}
         <div className="">
-          <button onClick={AdminFormBtn} className="bg-white shadow rounded-lg p-6 text-center hover:bg-blue-100 transition">
-            <h1 className="text-2xl font-semibold text-gray-700">Menambahkan Transaksi Pelanggan</h1>
-          </button>
+        <button
+          onClick={AdminFormBtn}
+          className="bg-white shadow rounded-lg p-6 text-center hover:bg-blue-100 transition w-full sm:w-auto"
+        >
+          <h1 className="text-lg sm:text-2xl font-semibold text-gray-700">
+            Menambahkan Transaksi Pelanggan
+          </h1>
+        </button>
         </div>
       </main>
       <button 
